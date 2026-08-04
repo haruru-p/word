@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset = "UTF-8">
+<title>単語帳Ver1.0</title>
+<style>
+body { margin: 0; width: 100vw; height: 100vh; background-color: #444; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; user-select: none; }
+#left, #right { width: 80%; height: 40%; display: flex; align-items: center; justify-content: center; background-color: white; border-radius: 50px; position: relative; }
+.left, .right { display: none; font-size: 30px; }
+#tag1, #tag2 { font-size: 50px; position: absolute; top: 0; left: 20px; }
+</style>
+</head>
+<body>
+<div id="right">
+<!-- ここより上変更禁止 -->
+
+
+<!-- 表紙に書くことを入力 -->
+<div class="right">表紙</div>
+
+<!-- ここから"答え"を入力 -->
+<div class="right">答1</div>
+<div class="right">答2</div>
+<div class="right">答3</div>
+<div class="right">答4</div>
+<div class="right">答5</div>
+<div class="right">答6</div>
+<div class="right">答7</div>
+<div class="right">答8</div>
+<div class="right">答9</div>
+<div class="right">答10</div>
+<!-- 10問以上ある場合はコピペして作成可能 -->
+
+<!-- ここより下変更禁止 -->
+<div id="tag1">読み込み中...</div>
+</div>
+<div id="left">
+<!-- ここより上変更禁止 -->
+
+<!-- ここから"問題"を入力 -->
+<div class="left">問1</div>
+<div class="left">問2</div>
+<div class="left">問3</div>
+<div class="left">問4</div>
+<div class="left">問5</div>
+<div class="left">問6</div>
+<div class="left">問7</div>
+<div class="left">問8</div>
+<div class="left">問9</div>
+<div class="left">問10</div>
+<!-- こちらもコピペして作成可能 -->
+
+<!-- 最後のページに書くことを入力 -->
+<div class="left">終わり</div>
+
+
+<!-- ここから下変更禁止 -->
+<div id="tag2">--</div>
+</div>
+<script>
+const L = document.querySelectorAll('.left');
+const R = document.querySelectorAll('.right');
+let page = 0;
+if (L.length !== R.length){ alert('問題と答えの数を揃えてください'); }
+function update(){
+if (L.length - 1 < page) page = L.length - 1;
+if (page < 0)page = 0;
+if (page === 0){
+document.getElementById('tag1').textContent = `top`;
+}else{
+document.getElementById('tag1').textContent = page;
+}
+if (page === L.length - 1){
+document.getElementById('tag2').textContent = `last`;
+}else{
+document.getElementById('tag2').textContent = page + 1;
+}
+L.forEach((l,i)=>{
+if(i === page){
+l.style.display = 'block'
+}else{
+l.style.display = 'none'
+}
+})
+R.forEach((r,i)=>{
+if(i === page){
+r.style.display = 'block'
+}else{
+r.style.display = 'none'
+}
+})
+};
+update()
+document.getElementById('left').addEventListener('click', ()=>{page++;update();});
+document.getElementById('right').addEventListener('click', ()=>{page--;update();});
+document.addEventListener('keydown', (e)=>{if(e.key==='ArrowUp'){page--;update();}else if(e.key==='ArrowDown'){page++;update();}});
+</script>
+</body>
+</html>
